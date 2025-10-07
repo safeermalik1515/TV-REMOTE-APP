@@ -1,0 +1,21 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Force Unix line endings for shell scripts
+*.sh text eol=lf
+gradlew text eol=lf
+gradlew.bat text eol=crlf
+
+# Force LF for specific files
+*.yml text eol=lf
+*.yaml text eol=lf
+*.gradle text eol=lf
+*.properties text eol=lf
+*.xml text eol=lf
+*.kt text eol=lf
+*.java text eol=lf
+
+# Binary files
+*.jar binary
+*.png binary
+*.apk binary
