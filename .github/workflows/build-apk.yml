@@ -21,15 +21,18 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
     
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: wrapper
-    
-    - name: Fix gradlew line endings
+    - name: Download Gradle Wrapper JAR
       run: |
-        dos2unix gradlew || sed -i 's/\r$//' gradlew || true
+        mkdir -p gradle/wrapper
+        curl -L -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/v8.2.0/gradle/wrapper/gradle-wrapper.jar
+        echo "Gradle wrapper downloaded!"
+        ls -la gradle/wrapper/
+    
+    - name: Fix gradlew permissions and line endings
+      run: |
+        sed -i 's/\r$//' gradlew || dos2unix gradlew || true
         chmod +x gradlew
+        echo "gradlew fixed!"
       
     - name: Build Debug APK
       run: ./gradlew assembleDebug --stacktrace
